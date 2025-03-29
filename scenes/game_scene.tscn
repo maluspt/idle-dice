@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://qqlywjibnf7l"]
+
+[ext_resource type="PackedScene" uid="uid://i8bpyrooahl5" path="res://scenes/dice.tscn" id="1_23nnr"]
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_kv058"]
+[ext_resource type="PackedScene" uid="uid://fwygeig5uyed" path="res://scenes/table.tscn" id="2_pu7r4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sm2wp"]
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_kv058")
+
+[node name="TableScene" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TableScene"]
+shape = SubResource("RectangleShape2D_sm2wp")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="TableScene/CollisionShape2D"]
+offset_left = 25.0
+offset_top = 157.0
+offset_right = 672.0
+offset_bottom = 618.0
+
+[node name="SubViewport" type="SubViewport" parent="TableScene/CollisionShape2D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(647, 461)
+render_target_update_mode = 4
+
+[node name="table" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("2_pu7r4")]
+
+[node name="dice" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("1_23nnr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.996843, 0.0379293, -0.0697555, -0.0793377, -0.440816, 0.894085, 0.00316271, 0.896796, 0.442433, 0, 50, 0)
+sky_mode = 1
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.305503, 0.319248, -0.897078, -0.926827, 0.116304, 0.357023, 0.218313, 0.940507, 0.260356, -66, 50, 0)
+sky_mode = 1
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.305503, 0.319248, -0.897078, -0.926827, 0.116304, 0.357023, 0.218313, 0.940507, 0.260356, 65, 50, 0)
+sky_mode = 1
+
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.0508541, 0.98094, -0.187536, -0.794332, 0.153547, 0.587758, 0.605352, 0.119076, 0.787001, 0, 50, 41)
+sky_mode = 1
+
+[node name="DirectionalLight3D5" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.367495, -0.891869, -0.263661, -0.794332, 0.153547, 0.587758, -0.483719, 0.425433, -0.764868, 0, 50, -39)
+sky_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 85.4082, 0)
+projection = 1
+size = 100.0
+
+[node name="RollButton" type="Button" parent="."]
+offset_left = 528.0
+offset_top = 118.0
+offset_right = 598.0
+offset_bottom = 149.0
+text = "roll dice"
+
+[connection signal="pressed" from="RollButton" to="." method="_on_button_pressed"]

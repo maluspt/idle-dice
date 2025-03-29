@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://0tapju22236q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qafnv"]
+size = Vector3(1280, 1, 720)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3oqm0"]
+transparency = 1
+albedo_color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mrvbs"]
+material = SubResource("StandardMaterial3D_3oqm0")
+size = Vector2(1280, 720)
+center_offset = Vector3(320, 0, 180)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r4sp8"]
+size = Vector3(8.2995, 305.902, 720)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4myf"]
+size = Vector3(1305.76, 312.315, 23.7114)
+
+[node name="Ground" type="Node3D"]
+
+[node name="Bottom" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bottom"]
+visible = false
+shape = SubResource("BoxShape3D_qafnv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bottom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -318.427, 1.52588e-05, -179.364)
+mesh = SubResource("PlaneMesh_mrvbs")
+
+[node name="Left" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -625.963, 132.951, 0)
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Left"]
+shape = SubResource("BoxShape3D_r4sp8")
+
+[node name="Right" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 625.963, 132.951, 0)
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Right"]
+shape = SubResource("BoxShape3D_r4sp8")
+
+[node name="Back" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 124.739, -353.194)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Back"]
+shape = SubResource("BoxShape3D_e4myf")
+
+[node name="Front" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 124.739, 353.169)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Front"]
+shape = SubResource("BoxShape3D_e4myf")

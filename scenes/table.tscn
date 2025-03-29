@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://fwygeig5uyed"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86aj5"]
+albedo_color = Color(0.247059, 0.247059, 0.247059, 1)
+
+[node name="table" type="Node3D"]
+
+[node name="floor" type="CSGBox3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+use_collision = true
+size = Vector3(320, 1, 180)
+material = SubResource("StandardMaterial3D_86aj5")
+
+[node name="wall-right" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.407, 0, 3.289)
+visible = false
+use_collision = true
+size = Vector3(0.001, 300, 135)
+
+[node name="wall-left" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.472, 0, -1.5)
+visible = false
+use_collision = true
+size = Vector3(0.001, 300, 154)
+
+[node name="wall-front" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 31.499)
+visible = false
+use_collision = true
+size = Vector3(226, 300, 0.001)
+
+[node name="wall-back" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, -37.499)
+visible = false
+use_collision = true
+size = Vector3(214, 300, 0.001)
