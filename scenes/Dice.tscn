@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://i8bpyrooahl5"]
+[gd_scene load_steps=7 format=3 uid="uid://i8bpyrooahl5"]
 
 [ext_resource type="Script" path="res://scripts/dice.gd" id="1_v34ua"]
 [ext_resource type="Texture2D" uid="uid://6htbtm8n0h8i" path="res://assets/images/dice-text-test.png" id="2_uahep"]
@@ -6,12 +6,14 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2daoe"]
 size = Vector3(8, 8, 8)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6bqm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fvrt"]
 albedo_texture = ExtResource("2_uahep")
 texture_filter = 0
 
-[sub_resource type="BoxMesh" id="BoxMesh_0wlg1"]
+[sub_resource type="BoxMesh" id="BoxMesh_oyyfo"]
 size = Vector3(8, 8, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y1euu"]
 
 [node name="dice" type="Node3D"]
 script = ExtResource("1_v34ua")
@@ -21,8 +23,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
-mass = 0.3
-gravity_scale = 10.0
+gravity_scale = 5.0
 sleeping = true
 freeze = true
 
@@ -30,6 +31,9 @@ freeze = true
 shape = SubResource("BoxShape3D_2daoe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-material_override = SubResource("StandardMaterial3D_d6bqm")
-mesh = SubResource("BoxMesh_0wlg1")
+material_override = SubResource("StandardMaterial3D_0fvrt")
+mesh = SubResource("BoxMesh_oyyfo")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_y1euu")
+
+[connection signal="sleeping_state_changed" from="RigidBody3D" to="." method="_on_rigid_body_3d_sleeping_state_changed"]

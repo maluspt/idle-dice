@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://qqlywjibnf7l"]
+[gd_scene load_steps=6 format=3 uid="uid://qqlywjibnf7l"]
 
 [ext_resource type="PackedScene" uid="uid://i8bpyrooahl5" path="res://scenes/dice.tscn" id="1_23nnr"]
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_kv058"]
 [ext_resource type="PackedScene" uid="uid://fwygeig5uyed" path="res://scenes/table.tscn" id="2_pu7r4"]
+[ext_resource type="PackedScene" uid="uid://coaam3w5nitoc" path="res://scenes/score_ui.tscn" id="4_rrc3k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sm2wp"]
 
@@ -31,6 +32,9 @@ render_target_update_mode = 4
 [node name="dice" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("1_23nnr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
+[node name="dice2" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("1_23nnr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 0)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.996843, 0.0379293, -0.0697555, -0.0793377, -0.440816, 0.894085, 0.00316271, 0.896796, 0.442433, 0, 50, 0)
 sky_mode = 1
@@ -57,10 +61,18 @@ projection = 1
 size = 100.0
 
 [node name="RollButton" type="Button" parent="."]
-offset_left = 528.0
-offset_top = 118.0
-offset_right = 598.0
-offset_bottom = 149.0
+offset_left = 31.0
+offset_top = 605.0
+offset_right = 101.0
+offset_bottom = 636.0
 text = "roll dice"
 
+[node name="ScoreUI" parent="." instance=ExtResource("4_rrc3k")]
+offset_left = 64.0
+offset_top = 31.0
+offset_right = 64.0
+offset_bottom = 31.0
+
+[connection signal="roll_finished" from="TableScene/CollisionShape2D/SubViewportContainer/SubViewport/dice" to="." method="_on_dice_roll_finished"]
+[connection signal="roll_finished" from="TableScene/CollisionShape2D/SubViewportContainer/SubViewport/dice2" to="." method="_on_dice_2_roll_finished"]
 [connection signal="pressed" from="RollButton" to="." method="_on_button_pressed"]
