@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://fwygeig5uyed"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86aj5"]
-albedo_color = Color(0.247059, 0.247059, 0.247059, 1)
+texture_filter = 0
 
 [node name="table" type="Node3D"]
 

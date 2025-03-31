@@ -6,9 +6,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2daoe"]
 size = Vector3(8, 8, 8)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fvrt"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1op4"]
 albedo_texture = ExtResource("2_uahep")
-texture_filter = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_oyyfo"]
 size = Vector3(8, 8, 8)
@@ -23,6 +22,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
+mass = 10.0
 gravity_scale = 5.0
 sleeping = true
 freeze = true
@@ -31,9 +31,10 @@ freeze = true
 shape = SubResource("BoxShape3D_2daoe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-material_override = SubResource("StandardMaterial3D_0fvrt")
+material_override = SubResource("StandardMaterial3D_e1op4")
 mesh = SubResource("BoxMesh_oyyfo")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_y1euu")
 
+[connection signal="roll_finished" from="." to="." method="_on_roll_finished"]
 [connection signal="sleeping_state_changed" from="RigidBody3D" to="." method="_on_rigid_body_3d_sleeping_state_changed"]

@@ -1,5 +1,7 @@
 extends Node
 
+enum DiceType { NORMAL, GOLD }
+
 var chips: int = 0
 
-signal chips_value_changed()
+

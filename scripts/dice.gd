@@ -1,13 +1,38 @@
 extends Node3D
 
 @onready var rigid_body = $RigidBody3D
+@onready var mesh = $RigidBody3D/MeshInstance3D
 
 var start_pos
 var roll_strength: int = 40
+var rolling = false
+var material: StandardMaterial3D
+var type: Global.DiceType
+
 signal roll_finished(value)
 
 func _ready():
 	start_pos = rigid_body.global_position
+	setup_texture()
+
+func load_texture():
+	var normal_texture = Image.load_from_file("res://assets/images/dice-text-test.png")
+	var gold_texture =  Image.load_from_file("res://assets/images/gold-dice-text-test.png")
+
+	if type == Global.DiceType.NORMAL:
+		var tex = ImageTexture.create_from_image(normal_texture)
+		return tex
+	elif type == Global.DiceType.GOLD:
+		var tex = ImageTexture.create_from_image(gold_texture)
+		return tex
+	else:
+		var tex = ImageTexture.create_from_image(normal_texture)
+		return tex
+		
+func setup_texture():
+	material = StandardMaterial3D.new()
+	material.albedo_texture = load_texture()
+	mesh.material_override = material
 
 func roll_dice():
 	# Reset
@@ -27,6 +52,7 @@ func roll_dice():
 	var throw_vector = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
 	rigid_body.angular_velocity = throw_vector * roll_strength / 2
 	rigid_body.apply_central_impulse(throw_vector * roll_strength)
+	rolling = true
 
 func get_roll_value() -> int:
 
@@ -62,6 +88,12 @@ func _on_rigid_body_3d_sleeping_state_changed():
 		if value > 0:
 			landed_on_side = true
 			roll_finished.emit(value)
+			rolling = false
 		if !landed_on_side:
 			roll_dice()
-		
+
+func _on_roll_finished(value):
+	if type == Global.DiceType.NORMAL:
+		Global.chips += value
+	elif type == Global.DiceType.GOLD:
+		Global.chips += value * 2

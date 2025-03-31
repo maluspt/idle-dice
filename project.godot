@@ -17,3 +17,9 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 [autoload]
 
 Global="*res://scripts/Global.gd"
+Upgrades="*res://scripts/Upgrades.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720

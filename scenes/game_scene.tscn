@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://qqlywjibnf7l"]
+[gd_scene load_steps=8 format=3 uid="uid://qqlywjibnf7l"]
 
 [ext_resource type="PackedScene" uid="uid://i8bpyrooahl5" path="res://scenes/dice.tscn" id="1_23nnr"]
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_kv058"]
+[ext_resource type="Texture2D" uid="uid://cp3ksvmc06ny1" path="res://assets/images/table.png" id="2_jnwgq"]
 [ext_resource type="PackedScene" uid="uid://fwygeig5uyed" path="res://scenes/table.tscn" id="2_pu7r4"]
 [ext_resource type="PackedScene" uid="uid://coaam3w5nitoc" path="res://scenes/score_ui.tscn" id="4_rrc3k"]
+[ext_resource type="PackedScene" uid="uid://pjsre1l5oi3l" path="res://scenes/upgrades_ui.tscn" id="6_qpqf7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sm2wp"]
 
@@ -11,6 +13,14 @@
 script = ExtResource("1_kv058")
 
 [node name="TableScene" type="CharacterBody2D" parent="."]
+position = Vector2(0, 60)
+
+[node name="TableSprite" type="Sprite2D" parent="TableScene"]
+z_index = -1
+position = Vector2(26, 166)
+texture = ExtResource("2_jnwgq")
+centered = false
+offset = Vector2(10, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableScene"]
 shape = SubResource("RectangleShape2D_sm2wp")
@@ -18,22 +28,22 @@ shape = SubResource("RectangleShape2D_sm2wp")
 [node name="SubViewportContainer" type="SubViewportContainer" parent="TableScene/CollisionShape2D"]
 offset_left = 25.0
 offset_top = 157.0
-offset_right = 672.0
-offset_bottom = 618.0
+offset_right = 719.0
+offset_bottom = 626.0
 
 [node name="SubViewport" type="SubViewport" parent="TableScene/CollisionShape2D/SubViewportContainer"]
+own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(647, 461)
+canvas_item_default_texture_filter = 0
+size = Vector2i(690, 469)
 render_target_update_mode = 4
 
 [node name="table" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("2_pu7r4")]
+visible = false
 
 [node name="dice" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("1_23nnr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
-
-[node name="dice2" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport" instance=ExtResource("1_23nnr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="TableScene/CollisionShape2D/SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.996843, 0.0379293, -0.0697555, -0.0793377, -0.440816, 0.894085, 0.00316271, 0.896796, 0.442433, 0, 50, 0)
@@ -61,10 +71,10 @@ projection = 1
 size = 100.0
 
 [node name="RollButton" type="Button" parent="."]
-offset_left = 31.0
-offset_top = 605.0
-offset_right = 101.0
-offset_bottom = 636.0
+offset_left = 44.0
+offset_top = 89.0
+offset_right = 114.0
+offset_bottom = 120.0
 text = "roll dice"
 
 [node name="ScoreUI" parent="." instance=ExtResource("4_rrc3k")]
@@ -73,6 +83,12 @@ offset_top = 31.0
 offset_right = 64.0
 offset_bottom = 31.0
 
+[node name="upgrades_ui" parent="." instance=ExtResource("6_qpqf7")]
+offset_left = 716.0
+offset_top = 20.0
+offset_right = 1250.0
+offset_bottom = 701.0
+size_flags_horizontal = 8
+
 [connection signal="roll_finished" from="TableScene/CollisionShape2D/SubViewportContainer/SubViewport/dice" to="." method="_on_dice_roll_finished"]
-[connection signal="roll_finished" from="TableScene/CollisionShape2D/SubViewportContainer/SubViewport/dice2" to="." method="_on_dice_2_roll_finished"]
 [connection signal="pressed" from="RollButton" to="." method="_on_button_pressed"]

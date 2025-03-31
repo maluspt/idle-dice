@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://nwjuekvbj7vm"]
+
+[ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="1_0jqvr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7j0vg"]
+font_size = 25
+
+[node name="upgrade_button" type="Control"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 534.0
+offset_bottom = 60.0
+script = ExtResource("1_0jqvr")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="TextureButton"]
+layout_mode = 1
+offset_right = 288.0
+offset_bottom = 35.0
+text = "upgrade: asdasdasdasd"
+label_settings = SubResource("LabelSettings_7j0vg")
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 227.0
+grow_vertical = 0
+text = "upgrade: asdasdasdasd"
+vertical_alignment = 1
+
+[node name="Cost" type="Label" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "COST: 10 CHIPS"
+vertical_alignment = 1
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
